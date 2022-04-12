@@ -8,10 +8,6 @@ import { LoginSuccess } from './pages/LoginSuccess'
 import { Login } from './pages/Login';
 
 const App: React.FC = () => {
-  
-
-  
-
   return (
     <BrowserRouter>
       <Navbar />

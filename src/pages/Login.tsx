@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom'
 import GoogleButton from 'react-google-button'
 import axios from 'axios'
 
-
 export const Login: React.FC = () => {
   const fetchAuthUser = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/auth/user', {
-        withCredentials: true,
-      })
+      const response = await axios.get(
+        process.env.REACT_APP_USER_AUTH_URL || '',
+        {
+          withCredentials: true,
+        }
+      )
 
       if (response && response.data) {
         console.log('User: ', response.data)
@@ -21,7 +23,7 @@ export const Login: React.FC = () => {
 
   const redirectToGoogleSSO = async () => {
     let timer: NodeJS.Timeout | null = null
-    const googleLoginUrl = 'http://localhost:3001/auth/google'
+    const googleLoginUrl = process.env.REACT_APP_GOOGLE_AUTH_URL
     const newWindow = window.open(
       googleLoginUrl,
       '_blank',
@@ -40,7 +42,7 @@ export const Login: React.FC = () => {
   }
 
   return (
-    <div className='login'>
+    <div className="login">
       <Fragment>
         <Link to="/login/google">
           <GoogleButton onClick={redirectToGoogleSSO} />
